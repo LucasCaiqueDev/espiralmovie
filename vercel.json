@@ -1,9 +1,9 @@
 {
   "version": 2,
   "builds": [
-    { "src": "YhujinMovie.html", "use": "@vercel/static" }
+    { "src": "EspiralMovie.html", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/YhujinMovie.html" }
+    { "src": "/(.*)", "dest": "/EspiralMovie.html" }
   ]
 }
