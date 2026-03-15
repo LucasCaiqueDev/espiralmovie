@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,63 +34,7 @@
       overflow-x: hidden;
     }
 
-    /* ═══════════════════════════════════════
-       POPUP
-    ═══════════════════════════════════════ */
-    #popup-overlay {
-      position: fixed; inset: 0; z-index: 9999;
-      background: rgba(0,0,0,0.88);
-      backdrop-filter: blur(8px);
-      display: flex; align-items: center; justify-content: center;
-      padding: 1rem;
-      animation: fadeIn 0.3s ease;
-    }
-    @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
-    @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes pulse   { 0%,100% { opacity:.55; } 50% { opacity:.2; } }
-
-    #popup-box {
-      background: #141414;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 18px;
-      padding: 2.25rem 2rem 1.75rem;
-      max-width: 440px; width: 100%;
-      text-align: center;
-      animation: slideUp 0.35s cubic-bezier(0.22,1,0.36,1);
-    }
-    .popup-logo { font-family:'Bebas Neue',sans-serif; font-size:1.9rem; letter-spacing:.08em; color:var(--accent); margin-bottom:.15rem; }
-    .popup-logo span { color:rgba(255,255,255,.45); }
-    .popup-divider { width:36px; height:3px; background:var(--accent); border-radius:2px; margin:.65rem auto 1.1rem; }
-    .popup-title { font-size:1.08rem; font-weight:700; color:#fff; margin-bottom:.5rem; }
-    .popup-body { font-size:.87rem; line-height:1.7; color:rgba(255,255,255,.6); margin-bottom:1.4rem; }
-    .popup-body a { color:var(--accent2); text-decoration:none; }
-    .popup-body a:hover { text-decoration:underline; }
-    .popup-body strong { color:rgba(255,255,255,.85); }
-    .popup-btns { display:flex; flex-direction:column; gap:.55rem; }
-
-    .btn-discord-popup {
-      display:flex; align-items:center; justify-content:center; gap:.5rem;
-      padding:.72rem 1.2rem; background:var(--discord); color:#fff; border:none;
-      border-radius:10px; font-family:'DM Sans',sans-serif; font-size:.9rem; font-weight:600;
-      cursor:pointer; text-decoration:none; transition:filter .2s,transform .15s;
-    }
-    .btn-discord-popup:hover { filter:brightness(1.15); transform:translateY(-1px); }
-
-    .btn-adblocker {
-      display:flex; align-items:center; justify-content:center; gap:.5rem;
-      padding:.66rem 1.2rem; background:transparent;
-      color:rgba(255,255,255,.65); border:1px solid rgba(255,255,255,.13);
-      border-radius:10px; font-family:'DM Sans',sans-serif; font-size:.86rem; font-weight:500;
-      cursor:pointer; text-decoration:none; transition:background .2s,color .2s,border-color .2s;
-    }
-    .btn-adblocker:hover { background:rgba(255,255,255,.06); color:#fff; border-color:rgba(255,255,255,.28); }
-
-    .btn-skip {
-      background:none; border:none; color:var(--muted);
-      font-family:'DM Sans',sans-serif; font-size:.78rem; cursor:pointer; padding:.3rem;
-      transition:color .2s;
-    }
-    .btn-skip:hover { color:rgba(255,255,255,.75); }
+    @keyframes pulse { 0%,100% { opacity:.55; } 50% { opacity:.2; } }
 
     /* ═══════════════════════════════════════
        DESKTOP NAV
@@ -122,6 +66,24 @@
     #searchBox::placeholder { color:var(--muted); }
     #searchBox:focus { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.22); }
     .nav-right { display:flex; align-items:center; gap:.55rem; flex-shrink:0; }
+
+    .nav-online {
+      display:flex; align-items:center; gap:.4rem;
+      padding:.38rem .7rem;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
+      font-size:.7rem;
+      color:rgba(255,255,255,.7);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+    .nav-online strong { color:#fff; font-weight:700; }
+    .nav-online-dot {
+      width:6px; height:6px; border-radius:50%;
+      background:#2dd4bf; box-shadow:0 0 10px rgba(45,212,191,.6);
+    }
 
     .mode-toggle {
       display:flex; align-items:center; gap:.35rem;
@@ -187,14 +149,17 @@
     #playerSection { display:none; background:#000; padding-top:var(--nav-h); }
     .player-wrap { max-width:1060px; margin:0 auto; padding:1.5rem 2rem 2rem; }
     .player-header { display:flex; align-items:center; gap:1rem; margin-bottom:1rem; flex-wrap:wrap; }
+    .player-actions { display:flex; align-items:center; gap:.55rem; flex-shrink:0; }
     #playerTitle { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:.04em; color:#fff; flex:1; }
-    .close-player {
+    .close-player,
+    .server-btn {
       background:transparent; border:1px solid rgba(255,255,255,.13); color:var(--muted);
       border-radius:8px; padding:.42rem .95rem;
       font-family:'DM Sans',sans-serif; font-size:.8rem; cursor:pointer;
       transition:color .2s,border-color .2s; white-space:nowrap;
     }
-    .close-player:hover { color:#fff; border-color:rgba(255,255,255,.3); }
+    .close-player:hover,
+    .server-btn:hover { color:#fff; border-color:rgba(255,255,255,.3); }
     #player { width:100%; aspect-ratio:16/9; border:none; background:#0a0a0a; border-radius:12px; }
     .episode-controls { margin-top:1rem; display:flex; align-items:center; gap:.55rem; flex-wrap:wrap; }
     .ep-label { font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; }
@@ -338,6 +303,19 @@
     }
     #mSearchBox::placeholder { color:var(--muted); }
     #mSearchBox:focus { background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.25); }
+    .m-online {
+      display:inline-flex; align-items:center; gap:.3rem;
+      padding:.18rem .5rem;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
+      font-size:.6rem;
+      color:rgba(255,255,255,.7);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+    .m-online-dot { width:5px; height:5px; border-radius:50%; background:#2dd4bf; }
     .m-topbar-dc {
       width:32px; height:32px; border-radius:50%; background:var(--discord);
       display:flex; align-items:center; justify-content:center; flex-shrink:0;
@@ -453,6 +431,13 @@
       flex:1; font-family:'DM Sans',sans-serif; font-size:.88rem; font-weight:600;
       color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     }
+    .m-server-btn {
+      padding:.35rem .6rem; border-radius:999px;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
+      color:rgba(255,255,255,.8); font-family:'DM Sans',sans-serif; font-size:.68rem; font-weight:600;
+      cursor:pointer; flex-shrink:0; transition:background .2s,color .2s,border-color .2s;
+    }
+    .m-server-btn:active { background:rgba(255,255,255,.14); color:#fff; border-color:rgba(255,255,255,.3); }
     #mPlayer {
       width:100%; aspect-ratio:16/9; border:none; background:#0a0a0a; flex-shrink:0;
     }
@@ -507,46 +492,26 @@
 </head>
 <body>
 
-<!-- ═══════ POPUP ═══════ -->
-<div id="popup-overlay" style="display:none;">
-  <div id="popup-box">
-    <div class="popup-logo">Espiral<span>Movie</span></div>
-    <div class="popup-divider"></div>
-    <div class="popup-title">Espiral Movie</div>
-    <div class="popup-body">
-      Assista a filmes e s&#233;ries gr&#225;tis, a qualquer hora.<br><br>
-      <strong>Junte-se &#224; nossa comunidade</strong> no Discord para pedir filmes, receber novidades e se conectar com outros membros!<br><br>
-      <strong>Vendo an&#250;ncios?</strong> Instale o <a href="https://ublockorigin.com/" target="_blank">uBlock Origin</a> para assistir sem interrup&#231;&#245;es.
-    </div>
-    <div class="popup-btns">
-      <a class="btn-discord-popup" href="https://discord.gg/g8J8JSZB8U" target="_blank">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-        Entrar na comunidade do Discord
-      </a>
-      <a class="btn-adblocker" href="https://ublockorigin.com/" target="_blank">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Instalar uBlock Origin — Bloquear an&#250;ncios
-      </a>
-      <button class="btn-skip" onclick="closePopup()">Pular, come&#231;ar a assistir</button>
-    </div>
-  </div>
-</div>
-
 <!-- ═══════ DESKTOP NAV ═══════ -->
 <nav id="desktopNav">
   <div class="nav-logo" onclick="backToHome()">Espiral<span>Movie</span></div>
   <div class="nav-center">
     <div class="search-wrap">
       <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="text" id="searchBox" placeholder="Search movies or shows..." aria-label="Search">
+      <input type="text" id="searchBox" placeholder="Buscar filmes ou séries..." aria-label="Buscar">
     </div>
   </div>
   <div class="nav-right">
+    <div class="nav-online" title="Visitantes online agora">
+      <span class="nav-online-dot"></span>
+      <span>Online local</span>
+      <strong id="visitorCount">--</strong>
+    </div>
     <button class="mode-toggle" id="modeToggle" onclick="toggleMode()">
       <svg id="modeIcon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
       </svg>
-      <span id="modeLabel">Mobile View</span>
+      <span id="modeLabel">Ver Mobile</span>
     </button>
     <a class="nav-discord-btn" href="https://discord.gg/g8J8JSZB8U" target="_blank">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
@@ -560,13 +525,13 @@
   <div id="heroBg"></div>
   <div class="hero-gradient"></div>
   <div class="hero-content">
-    <span class="hero-badge">Trending Now</span>
+    <span class="hero-badge">Em alta agora</span>
     <div id="heroTitle"></div>
     <div id="heroMeta"></div>
     <div id="heroOverview"></div>
     <button class="hero-btn" id="heroPlayBtn">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-      Watch Now
+      Assistir agora
     </button>
   </div>
 </section>
@@ -576,7 +541,10 @@
   <div class="player-wrap">
     <div class="player-header">
       <div id="playerTitle"></div>
-      <button class="close-player" onclick="closePlayer()">Close Player</button>
+      <div class="player-actions">
+        <button class="server-btn" onclick="changeEmbed()">Trocar servidor</button>
+        <button class="close-player" onclick="closePlayer()">Fechar player</button>
+      </div>
     </div>
     <iframe id="player" allowfullscreen loading="lazy"></iframe>
     <div class="episode-controls" id="episodeControls"></div>
@@ -591,25 +559,25 @@
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="footer-logo">Espiral<span>Movie</span></div>
-      <p>Free streaming platform for movies and TV shows, available anytime.</p>
-      <p style="margin-top:.4rem;">Made by <strong style="color:rgba(255,255,255,.7);">Espiral</strong> &middot; Team <strong style="color:rgba(255,255,255,.7);">Espiral Team</strong></p>
+      <p>Plataforma de streaming grátis de filmes e séries, disponível a qualquer hora.</p>
+      <p style="margin-top:.4rem;">Feito por <strong style="color:rgba(255,255,255,.7);">Espiral</strong> &middot; Equipe <strong style="color:rgba(255,255,255,.7);">Espiral Team</strong></p>
     </div>
     <div class="footer-links">
-      <h4>Community &amp; Tools</h4>
+      <h4>Comunidade e ferramentas</h4>
       <a href="https://discord.gg/g8J8JSZB8U" target="_blank">
         <span class="dc-pill">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
           Discord
         </span>
-        Join Espiral Projects
+        Entre na comunidade Espiral Team
       </a>
       <a href="https://ublockorigin.com/" target="_blank">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        uBlock Origin — Block Ads
+        uBlock Origin — Bloquear anúncios
       </a>
     </div>
   </div>
-  <div class="footer-copy">2025 Espiral Movie. All rights reserved.</div>
+  <div class="footer-copy">2025 Espiral Movie. Todos os direitos reservados.</div>
 </footer>
 
 <!-- ═══════════════════════════════════════
@@ -647,12 +615,16 @@
 
   <!-- Top bar -->
   <div class="m-topbar">
-    <div class="m-topbar-logo" id="mLogo" onclick="mobileGoHome()">Yhujin<span>Movie</span></div>
+    <div class="m-topbar-logo" id="mLogo" onclick="mobileGoHome()">Espiral<span>Movie</span></div>
     <div class="m-topbar-search">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="text" id="mSearchBox" placeholder="Search movies or shows...">
+      <input type="text" id="mSearchBox" placeholder="Buscar filmes ou séries...">
     </div>
-    <a class="m-topbar-dc" href="https://discord.gg/g8J8JSZB8U" target="_blank" title="Join Discord">
+    <div class="m-online" title="Online agora">
+      <span class="m-online-dot"></span>
+      <span id="mVisitorCount">--</span>
+    </div>
+    <a class="m-topbar-dc" href="https://discord.gg/g8J8JSZB8U" target="_blank" title="Entrar no Discord">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
     </a>
   </div>
@@ -669,6 +641,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
       <div class="m-player-name" id="mPlayerName"></div>
+      <button class="m-server-btn" onclick="changeEmbed()">Servidor</button>
     </div>
     <iframe id="mPlayer" allowfullscreen loading="lazy"></iframe>
     <div class="m-player-info">
@@ -682,15 +655,15 @@
   <div class="m-bottomnav">
     <button class="m-nav-item active" id="mNavHome" onclick="mNavClick('home')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      <span>Home</span>
+      <span>Início</span>
     </button>
     <button class="m-nav-item" id="mNavMovies" onclick="mNavClick('movies')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18"/><path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 17h5M17 7h5"/></svg>
-      <span>Movies</span>
+      <span>Filmes</span>
     </button>
     <button class="m-nav-item" id="mNavSeries" onclick="mNavClick('series')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-      <span>Series</span>
+      <span>Séries</span>
     </button>
     <button class="m-nav-item" id="mNavMode" onclick="toggleMode()">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="13" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
@@ -703,28 +676,127 @@
 <script>
 const API_KEY = 'd1007bf32c19224b866b56f63c3bd4a4';
 const IMG = 'https://image.tmdb.org/t/p/';
-const EMBED = 'https://vidsrc.xyz/embed';
+const DEFAULT_EMBED = 'https://vidsrc.xyz/embed';
+const EMBED_KEY = 'Espiral-embed-base';
+let EMBED = getEmbedBase();
+const LANG = 'pt-BR';
 const $ = id => document.getElementById(id);
 
+function normalizeEmbed(url) {
+  return url.replace(/\/+$/, '');
+}
+
+function getEmbedBase() {
+  const param = new URLSearchParams(window.location.search).get('embed');
+  if (param) return normalizeEmbed(param);
+  const stored = localStorage.getItem(EMBED_KEY);
+  if (stored) return normalizeEmbed(stored);
+  return DEFAULT_EMBED;
+}
+
+function setEmbedBase(url) {
+  EMBED = normalizeEmbed(url);
+  localStorage.setItem(EMBED_KEY, EMBED);
+}
+
+function changeEmbed() {
+  const next = prompt('Cole a URL base do servidor de embed (ex: https://vidsrc.xyz/embed):', EMBED);
+  if (!next) return;
+  setEmbedBase(next);
+  reloadCurrentPlayer();
+}
+
+const VISITOR_TTL_MS = 30000;
+const VISITOR_PING_MS = 10000;
+const VISITOR_KEY = 'Espiral-visitors';
+const VISITOR_SESSION_KEY = 'Espiral-visitor-id';
+let visitorTimer = null;
+
+const visitorId = (() => {
+  let id = sessionStorage.getItem(VISITOR_SESSION_KEY);
+  if (!id) {
+    id = (crypto && crypto.randomUUID) ? crypto.randomUUID() : (Math.random().toString(36).slice(2) + Date.now().toString(36));
+    sessionStorage.setItem(VISITOR_SESSION_KEY, id);
+  }
+  return id;
+})();
+
+function updateVisitorCount(count) {
+  const val = (count === null || count === undefined) ? '--' : String(count);
+  const desktop = $('visitorCount');
+  const mobile = $('mVisitorCount');
+  if (desktop) desktop.textContent = val;
+  if (mobile) mobile.textContent = val;
+}
+
+function readVisitors() {
+  try { return JSON.parse(localStorage.getItem(VISITOR_KEY) || '{}'); }
+  catch { return {}; }
+}
+
+function writeVisitors(map) {
+  localStorage.setItem(VISITOR_KEY, JSON.stringify(map));
+}
+
+function cleanupVisitors(map, now) {
+  Object.keys(map).forEach(id => {
+    if (now - map[id] > VISITOR_TTL_MS) delete map[id];
+  });
+}
+
+function pingVisitorsLocal() {
+  const now = Date.now();
+  const map = readVisitors();
+  map[visitorId] = now;
+  cleanupVisitors(map, now);
+  writeVisitors(map);
+  updateVisitorCount(Object.keys(map).length);
+}
+
+function removeVisitorLocal() {
+  const map = readVisitors();
+  if (map[visitorId]) {
+    delete map[visitorId];
+    writeVisitors(map);
+    updateVisitorCount(Object.keys(map).length);
+  }
+}
+
+function startVisitorCounter() {
+  if (visitorTimer) clearInterval(visitorTimer);
+  pingVisitorsLocal();
+  visitorTimer = setInterval(pingVisitorsLocal, VISITOR_PING_MS);
+}
+
+window.addEventListener('storage', (e) => {
+  if (e.key !== VISITOR_KEY || !e.newValue) return;
+  try {
+    const map = JSON.parse(e.newValue);
+    cleanupVisitors(map, Date.now());
+    updateVisitorCount(Object.keys(map).length);
+  } catch { /* ignore */ }
+});
+
+window.addEventListener('beforeunload', removeVisitorLocal);
 /* ─── shared state ─── */
 let heroItem = null;
 let isMobile = false;
 let mCurrentTab = 'home';
 let mHeroData   = null;
+let currentPlay = null;
+
+function reloadCurrentPlayer() {
+  if (!currentPlay) return;
+  if (currentPlay.isMobile) mOpenPlayer(currentPlay.id, currentPlay.type, currentPlay.name, currentPlay.item);
+  else loadPlayer(currentPlay.id, currentPlay.type, currentPlay.name);
+}
 
 const CATS = [
-  { title:'Trending This Week', sub:'Movies', url:`https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`, type:'movie' },
-  { title:'Popular Series',     sub:'TV Shows', url:`https://api.themoviedb.org/3/trending/tv/week?api_key=${API_KEY}`,   type:'tv'    },
-  { title:'Popular Movies',     sub:'Movies', url:`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`,         type:'movie' },
-  { title:'Top Rated Series',   sub:'TV Shows', url:`https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}`,          type:'tv'    },
+  { title:'Em alta na semana',   sub:'Filmes', url:`https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`, type:'movie' },
+  { title:'Séries populares',    sub:'Séries', url:`https://api.themoviedb.org/3/trending/tv/week?api_key=${API_KEY}`,   type:'tv'    },
+  { title:'Filmes populares',    sub:'Filmes', url:`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`,       type:'movie' },
+  { title:'Séries bem avaliadas', sub:'Séries', url:`https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}`,         type:'tv'    },
 ];
-
-/* ─── popup ─── */
-function closePopup() {
-  const o = $('popup-overlay');
-  o.style.transition = 'opacity .25s'; o.style.opacity = '0';
-  setTimeout(() => o.remove(), 260);
-}
 
 /* ─── time clock for mobile status bar ─── */
 function updateTime() {
@@ -742,7 +814,7 @@ const MOBILE_ICON  = `<rect x="5" y="2" width="14" height="20" rx="2"/><line x1=
 function toggleMode() {
   isMobile = !isMobile;
   applyMode();
-  localStorage.setItem('yhujin-mode', isMobile ? 'mobile' : 'desktop');
+  localStorage.setItem('Espiral-mode', isMobile ? 'mobile' : 'desktop');
   if (isMobile) mobileLoadHome();
   else loadCategories();
 }
@@ -750,18 +822,19 @@ function toggleMode() {
 function applyMode() {
   document.body.classList.toggle('mobile-mode', isMobile);
   const lbl  = $('modeLabel'), icon = $('modeIcon');
-  if (lbl)  lbl.textContent  = isMobile ? 'Desktop View' : 'Mobile View';
+  if (lbl)  lbl.textContent  = isMobile ? 'Ver Desktop' : 'Ver Mobile';
   if (icon) icon.innerHTML   = isMobile ? DESKTOP_ICON : MOBILE_ICON;
 }
 
 function initMode() {
-  isMobile = localStorage.getItem('yhujin-mode') === 'mobile';
+  isMobile = localStorage.getItem('Espiral-mode') === 'mobile';
   applyMode();
 }
 
 /* ─── API ─── */
 async function apiFetch(url) {
-  try { const r = await fetch(url); if (!r.ok) throw Error(r.status); return r.json(); }
+  const finalUrl = url.includes('language=') ? url : `${url}${url.includes('?') ? '&' : '?'}language=${LANG}`;
+  try { const r = await fetch(finalUrl); if (!r.ok) throw Error(r.status); return r.json(); }
   catch(e) { console.error(e); return null; }
 }
 
@@ -774,9 +847,9 @@ function arrowSvg(d) {
 }
 
 function createCard(item, type) {
-  const name   = item.title || item.name || 'Unknown';
+  const name   = item.title || item.name || 'Desconhecido';
   const poster = item.poster_path ? `${IMG}w342${item.poster_path}` : '';
-  const tag    = type === 'tv' ? 'Series' : 'Movie';
+  const tag    = type === 'tv' ? 'Série' : 'Filme';
   const card   = document.createElement('div');
   card.className = 'card';
   card.innerHTML = `
@@ -802,8 +875,8 @@ function renderRow(cat, items) {
 
   const wrapper = document.createElement('div'); wrapper.className = 'row-wrapper';
   const scroll  = document.createElement('div'); scroll.className  = 'row-scroll';
-  const btnL    = document.createElement('button'); btnL.className  = 'arrow-btn arrow-left';  btnL.setAttribute('aria-label','Scroll left');  btnL.innerHTML = arrowSvg('left');
-  const btnR    = document.createElement('button'); btnR.className  = 'arrow-btn arrow-right'; btnR.setAttribute('aria-label','Scroll right'); btnR.innerHTML = arrowSvg('right');
+  const btnL    = document.createElement('button'); btnL.className  = 'arrow-btn arrow-left';  btnL.setAttribute('aria-label','Rolar para a esquerda');  btnL.innerHTML = arrowSvg('left');
+  const btnR    = document.createElement('button'); btnR.className  = 'arrow-btn arrow-right'; btnR.setAttribute('aria-label','Rolar para a direita'); btnR.innerHTML = arrowSvg('right');
 
   const getAmt = () => Math.max(160, wrapper.clientWidth * 0.72);
   btnL.addEventListener('click', () => { scroll.scrollLeft -= getAmt(); });
@@ -855,13 +928,15 @@ function showHero(item, type) {
   const rating = item.vote_average ? item.vote_average.toFixed(1) : '';
   $('heroBg').style.backgroundImage = `url(${backdrop})`;
   $('heroTitle').textContent    = name;
-  $('heroMeta').textContent     = [year, rating ? `${rating}/10` : '', type==='tv'?'Series':'Movie'].filter(Boolean).join('  ·  ');
-  $('heroOverview').textContent = item.overview || '';
+  $('heroMeta').textContent     = [year, rating ? `${rating}/10` : '', type==='tv'?'Série':'Filme'].filter(Boolean).join('  •  ');
+  const overview = (item.overview || '').trim();
+  $('heroOverview').textContent = overview || 'Sinopse indisponível em português.';
   $('heroSection').style.display = 'block';
   $('heroPlayBtn').onclick = () => loadPlayer(item.id, type, name, item);
 }
 
 async function loadPlayer(id, type, name) {
+  currentPlay = { id, type, name, item: null, isMobile: false };
   window.scrollTo({ top:0, behavior:'smooth' });
   $('heroSection').style.display   = 'none';
   $('playerSection').style.display = 'block';
@@ -873,16 +948,16 @@ async function loadPlayer(id, type, name) {
     if (!data) return;
     const ctrl = document.createElement('div');
     ctrl.style.cssText = 'display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;';
-    ctrl.innerHTML = `<span class="ep-label">Season</span><select class="ep-select" id="dynSeason"><option value="" disabled selected>Select Season</option></select><span class="ep-label">Episode</span><select class="ep-select" id="dynEp"><option value="" disabled selected>Select Episode</option></select>`;
+    ctrl.innerHTML = `<span class="ep-label">Temporada</span><select class="ep-select" id="dynSeason"><option value="" disabled selected>Selecionar temporada</option></select><span class="ep-label">Episódio</span><select class="ep-select" id="dynEp"><option value="" disabled selected>Selecionar episódio</option></select>`;
     $('episodeControls').appendChild(ctrl);
     const dynSeason = $('dynSeason'), dynEp = $('dynEp');
-    data.seasons.filter(s => s.season_number !== 0).forEach(s => dynSeason.add(new Option(`Season ${s.season_number}`, s.season_number)));
+    data.seasons.filter(s => s.season_number !== 0).forEach(s => dynSeason.add(new Option(`Temporada ${s.season_number}`, s.season_number)));
     dynSeason.onchange = async () => {
       const sn = dynSeason.value;
       const epData = await apiFetch(`https://api.themoviedb.org/3/tv/${id}/season/${sn}?api_key=${API_KEY}`);
       if (!epData) return;
-      dynEp.innerHTML = '<option value="" disabled selected>Select Episode</option>';
-      epData.episodes.forEach(ep => dynEp.add(new Option(`Ep ${ep.episode_number} — ${ep.name}`, ep.episode_number)));
+      dynEp.innerHTML = '<option value="" disabled selected>Selecionar episódio</option>';
+      epData.episodes.forEach(ep => dynEp.add(new Option(`Ep. ${ep.episode_number} — ${ep.name}`, ep.episode_number)));
     };
     dynEp.onchange = () => {
       const sn = dynSeason.value, ep = dynEp.value;
@@ -898,6 +973,7 @@ function closePlayer() {
   $('player').src = '';
   $('playerSection').style.display = 'none';
   $('episodeControls').innerHTML   = '';
+  currentPlay = null;
   if (heroItem) showHero(heroItem, heroItem._type);
   else window.scrollTo({ top:0, behavior:'smooth' });
 }
@@ -916,15 +992,15 @@ async function searchContent() {
   $('heroSection').style.display = 'none';
   const skWrap = document.createElement('div');
   skWrap.style.cssText = 'padding:1.5rem 2rem 0;';
-  skWrap.innerHTML = `<div style="font-family:'Bebas Neue',sans-serif;font-size:1.28rem;letter-spacing:.05em;margin-bottom:1rem;color:#fff;">Searching...</div>`;
+  skWrap.innerHTML = `<div style="font-family:'Bebas Neue',sans-serif;font-size:1.28rem;letter-spacing:.05em;margin-bottom:1rem;color:#fff;">Buscando...</div>`;
   const skG = document.createElement('div'); skG.className = 'search-grid';
   for (let i=0;i<12;i++) skG.innerHTML += `<div class="skeleton-card" style="aspect-ratio:2/3;border-radius:10px;"></div>`;
   skWrap.appendChild(skG); mc.appendChild(skWrap);
   const data = await apiFetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(q)}`);
   skWrap.remove();
-  if (!data?.results?.length) { mc.innerHTML = `<div class="empty-state">No results for "<strong style="color:#fff;">${q}</strong>"</div>`; return; }
+  if (!data?.results?.length) { mc.innerHTML = `<div class="empty-state">Sem resultados para "<strong style="color:#fff;">${q}</strong>"</div>`; return; }
   const hdr = document.createElement('div'); hdr.style.cssText = 'padding:1.5rem 2rem .8rem;';
-  hdr.innerHTML = `<div style="font-family:'Bebas Neue',sans-serif;font-size:1.28rem;letter-spacing:.05em;color:#fff;">Results for "<span style="color:var(--accent);">${q}</span>"</div>`;
+  hdr.innerHTML = `<div style="font-family:'Bebas Neue',sans-serif;font-size:1.28rem;letter-spacing:.05em;color:#fff;">Resultados para "<span style="color:var(--accent);">${q}</span>"</div>`;
   mc.appendChild(hdr);
   const grid = document.createElement('div'); grid.className = 'search-grid';
   data.results.filter(i => i.poster_path && (i.media_type==='movie'||i.media_type==='tv')).forEach(i => grid.appendChild(createCard(i, i.media_type)));
@@ -952,8 +1028,8 @@ function mNavClick(tab) {
   $('mNavMode').classList.remove('active');
   $('mSearchBox').value = '';
   if (tab === 'home')    mobileLoadHome();
-  if (tab === 'movies')  mobileLoadSection('Popular Movies', `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`, 'movie');
-  if (tab === 'series')  mobileLoadSection('Popular Series', `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}`, 'tv');
+  if (tab === 'movies')  mobileLoadSection('Filmes populares', `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`, 'movie');
+  if (tab === 'series')  mobileLoadSection('Séries populares', `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}`, 'tv');
 }
 
 function mobileGoHome() { mNavClick('home'); }
@@ -971,12 +1047,12 @@ function mRenderHero(item, type) {
     <div class="m-hero-bg" style="background-image:url(${backdrop})"></div>
     <div class="m-hero-grad"></div>
     <div class="m-hero-content">
-      <div class="m-hero-badge">Trending Now</div>
+      <div class="m-hero-badge">Em alta agora</div>
       <div class="m-hero-title">${name}</div>
-      <div class="m-hero-meta">${[year, rating?`${rating}/10`:'', type==='tv'?'Series':'Movie'].filter(Boolean).join(' · ')}</div>
+      <div class="m-hero-meta">${[year, rating?`${rating}/10`:'', type==='tv'?'Série':'Filme'].filter(Boolean).join(' • ')}</div>
       <button class="m-hero-btn" onclick="mOpenPlayer(${item.id},'${type}','${name.replace(/'/g,"\\'")}')">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        Watch Now
+        Assistir agora
       </button>
     </div>`;
   return hero;
@@ -986,7 +1062,7 @@ function mRenderHero(item, type) {
 function mCreateCard(item, type) {
   const name   = item.title || item.name || '';
   const poster = item.poster_path ? `${IMG}w342${item.poster_path}` : '';
-  const tag    = type === 'tv' ? 'Series' : 'Movie';
+  const tag    = type === 'tv' ? 'Série' : 'Filme';
   const card   = document.createElement('div');
   card.className = 'm-card';
   card.innerHTML = `
@@ -1061,7 +1137,7 @@ async function mobileLoadSection(title, url, type) {
 
   const data = await apiFetch(url);
   skel.remove();
-  if (!data?.results?.length) { mContent.innerHTML += `<div class="m-empty">Nothing found.</div>`; return; }
+  if (!data?.results?.length) { mContent.innerHTML += `<div class="m-empty">Nada encontrado.</div>`; return; }
 
   const grid = document.createElement('div'); grid.className = 'm-card-grid';
   data.results.filter(r => r.poster_path).forEach(item => grid.appendChild(mCreateCard(item, type)));
@@ -1077,13 +1153,13 @@ async function mobileSearch() {
   mContent.scrollTop = 0;
 
   const label = document.createElement('div'); label.className = 'm-section-label';
-  label.innerHTML = `Results for "<span style="color:var(--accent);">${q}</span>"`;
+  label.innerHTML = `Resultados para "<span style="color:var(--accent);">${q}</span>"`;
   const skel = mSkelGrid(12);
   mContent.appendChild(label); mContent.appendChild(skel);
 
   const data = await apiFetch(`https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(q)}`);
   skel.remove();
-  if (!data?.results?.length) { mContent.innerHTML += `<div class="m-empty">No results for "${q}"</div>`; return; }
+  if (!data?.results?.length) { mContent.innerHTML += `<div class="m-empty">Sem resultados para "${q}"</div>`; return; }
 
   const grid = document.createElement('div'); grid.className = 'm-card-grid';
   data.results.filter(i => i.poster_path && (i.media_type==='movie'||i.media_type==='tv')).forEach(i => grid.appendChild(mCreateCard(i, i.media_type)));
@@ -1095,6 +1171,7 @@ $('mSearchBox').addEventListener('input', () => { clearTimeout(mSearchTimer); mS
 
 /* Mobile player */
 async function mOpenPlayer(id, type, name, item) {
+  currentPlay = { id, type, name, item: item || null, isMobile: true };
   const ps = $('mPlayerScreen');
   ps.style.display = 'flex';
   ps.style.flexDirection = 'column';
@@ -1104,24 +1181,24 @@ async function mOpenPlayer(id, type, name, item) {
 
   const year   = item ? (item.release_date || item.first_air_date || '').slice(0,4) : '';
   const rating = item?.vote_average ? item.vote_average.toFixed(1) : '';
-  $('mPlayerMeta').textContent  = [year, rating?`${rating}/10`:'', type==='tv'?'Series':'Movie'].filter(Boolean).join(' · ');
+  $('mPlayerMeta').textContent  = [year, rating?`${rating}/10`:'', type==='tv'?'Série':'Filme'].filter(Boolean).join(' • ');
 
   if (type === 'tv') {
     const data = await apiFetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}`);
     if (!data) return;
     const ctrl = document.createElement('div');
     ctrl.innerHTML = `
-      <div class="m-ep-row"><span class="m-ep-label">Season</span><select class="m-ep-select" id="mDynSeason"><option value="" disabled selected>Select Season</option></select></div>
-      <div class="m-ep-row"><span class="m-ep-label">Episode</span><select class="m-ep-select" id="mDynEp"><option value="" disabled selected>Select Episode</option></select></div>`;
+      <div class="m-ep-row"><span class="m-ep-label">Temporada</span><select class="m-ep-select" id="mDynSeason"><option value="" disabled selected>Selecionar temporada</option></select></div>
+      <div class="m-ep-row"><span class="m-ep-label">Episódio</span><select class="m-ep-select" id="mDynEp"><option value="" disabled selected>Selecionar episódio</option></select></div>`;
     $('mEpControls').appendChild(ctrl);
     const mDynSeason = $('mDynSeason'), mDynEp = $('mDynEp');
-    data.seasons.filter(s => s.season_number !== 0).forEach(s => mDynSeason.add(new Option(`Season ${s.season_number}`, s.season_number)));
+    data.seasons.filter(s => s.season_number !== 0).forEach(s => mDynSeason.add(new Option(`Temporada ${s.season_number}`, s.season_number)));
     mDynSeason.onchange = async () => {
       const sn = mDynSeason.value;
       const epData = await apiFetch(`https://api.themoviedb.org/3/tv/${id}/season/${sn}?api_key=${API_KEY}`);
       if (!epData) return;
-      mDynEp.innerHTML = '<option value="" disabled selected>Select Episode</option>';
-      epData.episodes.forEach(ep => mDynEp.add(new Option(`Ep ${ep.episode_number} — ${ep.name}`, ep.episode_number)));
+      mDynEp.innerHTML = '<option value="" disabled selected>Selecionar episódio</option>';
+      epData.episodes.forEach(ep => mDynEp.add(new Option(`Ep. ${ep.episode_number} — ${ep.name}`, ep.episode_number)));
     };
     mDynEp.onchange = () => {
       const sn = mDynSeason.value, ep = mDynEp.value;
@@ -1136,12 +1213,25 @@ function mClosePlayer() {
   $('mPlayer').src = '';
   $('mPlayerScreen').style.display = 'none';
   $('mEpControls').innerHTML = '';
+  currentPlay = null;
 }
 
 /* ─── INIT ─── */
-initMode();
-if (isMobile) mobileLoadHome();
-else loadCategories();
+function initApp() {
+  initMode();
+  if (isMobile) mobileLoadHome();
+  else loadCategories();
+  startVisitorCounter();
+}
+
+initApp();
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
