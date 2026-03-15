@@ -49,7 +49,7 @@ def add_cors_headers(resp):
 
 @app.get('/')
 def index():
-    return send_from_directory('.', 'YhujinMovie.html')
+    return send_from_directory('.', 'EspiralMovie.html')
 
 
 @app.post('/auth/login')
