@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "YhujinMovie.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/YhujinMovie.html" }
+  ]
+}
