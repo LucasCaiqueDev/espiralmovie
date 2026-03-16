@@ -676,33 +676,109 @@
 <script>
 const API_KEY = 'd1007bf32c19224b866b56f63c3bd4a4';
 const IMG = 'https://image.tmdb.org/t/p/';
-const DEFAULT_EMBED = 'https://vidsrc.xyz/embed';
-const EMBED_KEY = 'Espiral-embed-base';
-let EMBED = getEmbedBase();
+const DEFAULT_EMBED = 'https://vidsrc-embed.ru/embed';
+const EMBED_LIST_KEY = 'Espiral-embed-list';
+const EMBED_ACTIVE_KEY = 'Espiral-embed-active';
+const EMBED_LEGACY_KEY = 'Espiral-embed-base';
+let embedList = [];
+let EMBED = DEFAULT_EMBED;
 const LANG = 'pt-BR';
 const $ = id => document.getElementById(id);
 
 function normalizeEmbed(url) {
+  if (!url || typeof url !== 'string') return '';
   return url.replace(/\/+$/, '');
 }
 
-function getEmbedBase() {
-  const param = new URLSearchParams(window.location.search).get('embed');
-  if (param) return normalizeEmbed(param);
-  const stored = localStorage.getItem(EMBED_KEY);
-  if (stored) return normalizeEmbed(stored);
-  return DEFAULT_EMBED;
+function readEmbedList() {
+  try { return JSON.parse(localStorage.getItem(EMBED_LIST_KEY) || '[]'); }
+  catch { return []; }
 }
 
-function setEmbedBase(url) {
-  EMBED = normalizeEmbed(url);
-  localStorage.setItem(EMBED_KEY, EMBED);
+function writeEmbedList(list) {
+  localStorage.setItem(EMBED_LIST_KEY, JSON.stringify(list));
+}
+
+function ensureEmbedList() {
+  let list = readEmbedList();
+  list = (Array.isArray(list) ? list : [])
+    .filter(s => s && typeof s.url === 'string' && s.url.trim())
+    .map((s, i) => ({
+      label: (s.label || `Servidor ${i + 1}`),
+      url: normalizeEmbed(s.url)
+    }))
+    .filter(s => s.url);
+
+  if (!list.length) list = [{ label: 'Servidor 1', url: DEFAULT_EMBED }];
+
+  const legacy = localStorage.getItem(EMBED_LEGACY_KEY);
+  if (legacy) {
+    const legacyUrl = normalizeEmbed(legacy);
+    if (legacyUrl && !list.some(s => s.url === legacyUrl)) {
+      list.push({ label: `Servidor ${list.length + 1}`, url: legacyUrl });
+    }
+  }
+
+  const seen = new Set();
+  list = list.filter(s => {
+    if (seen.has(s.url)) return false;
+    seen.add(s.url);
+    return true;
+  });
+
+  writeEmbedList(list);
+  return list;
+}
+
+function setActiveEmbed(url, persist = true) {
+  const norm = normalizeEmbed(url);
+  if (!norm) return;
+  EMBED = norm;
+  if (persist) localStorage.setItem(EMBED_ACTIVE_KEY, EMBED);
+}
+
+function initEmbeds() {
+  embedList = ensureEmbedList();
+
+  const param = new URLSearchParams(window.location.search).get('embed');
+  const paramUrl = param ? normalizeEmbed(param) : '';
+  if (paramUrl && !embedList.some(s => s.url === paramUrl)) {
+    embedList.push({ label: `Servidor ${embedList.length + 1}`, url: paramUrl });
+    writeEmbedList(embedList);
+  }
+
+  const stored = localStorage.getItem(EMBED_ACTIVE_KEY) || localStorage.getItem(EMBED_LEGACY_KEY);
+  const active = paramUrl || stored || embedList[0]?.url || DEFAULT_EMBED;
+  setActiveEmbed(active, !paramUrl);
 }
 
 function changeEmbed() {
-  const next = prompt('Cole a URL base do servidor de embed (ex: https://vidsrc.xyz/embed):', EMBED);
-  if (!next) return;
-  setEmbedBase(next);
+  embedList = ensureEmbedList();
+  const listText = embedList.map((s, i) => `${i + 1}. ${s.label} — ${s.url}`).join('\n');
+  const msg = `Escolha o número do servidor ou cole uma URL nova:\n${listText}`;
+  const input = prompt(msg, EMBED);
+  if (!input) return;
+  const value = input.trim();
+
+  if (/^\d+$/.test(value)) {
+    const idx = parseInt(value, 10) - 1;
+    if (!embedList[idx]) { alert('Número inválido.'); return; }
+    setActiveEmbed(embedList[idx].url);
+    reloadCurrentPlayer();
+    return;
+  }
+
+  if (!/^https?:\/\//i.test(value)) {
+    alert('Use uma URL completa (https://...)');
+    return;
+  }
+
+  const nextUrl = normalizeEmbed(value);
+  if (!embedList.some(s => s.url === nextUrl)) {
+    embedList.push({ label: `Servidor ${embedList.length + 1}`, url: nextUrl });
+    writeEmbedList(embedList);
+  }
+  setActiveEmbed(nextUrl);
   reloadCurrentPlayer();
 }
 
@@ -1218,6 +1294,7 @@ function mClosePlayer() {
 
 /* ─── INIT ─── */
 function initApp() {
+  initEmbeds();
   initMode();
   if (isMobile) mobileLoadHome();
   else loadCategories();
